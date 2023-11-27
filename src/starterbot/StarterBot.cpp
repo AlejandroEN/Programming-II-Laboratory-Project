@@ -11,7 +11,7 @@ StarterBot::StarterBot()
 void StarterBot::onStart()
 {
     // Set our BWAPI options here    
-    BWAPI::Broodwar->setLocalSpeed(10);
+	BWAPI::Broodwar->setLocalSpeed(10);
     BWAPI::Broodwar->setFrameSkip(0);
     
     // Enable the flag that tells BWAPI top let users enter input while bot plays
@@ -27,30 +27,20 @@ void StarterBot::onFrame()
     // Update our MapTools information
     m_mapTools.onFrame();
 
-    BWAPI::Unitset allUnits = BWAPI::Broodwar->getAllUnits();
-
-    int a = 40, b = 80;
-
-    for (BWAPI::Unit unit : allUnits)
-    {
-        auto unitPosition = unit->getPosition();
-        BWAPI::Broodwar->drawTextMap(unitPosition.x, unitPosition.y - 10, "El conteo es %d y el promedio es %d", a, b);
-    }
-
     // Send our idle workers to mine minerals so they don't just stand there
-    //sendIdleWorkersToMinerals();
+    sendIdleWorkersToMinerals();
 
     // Train more workers so we can gather more income
-    //trainAdditionalWorkers();
+    trainAdditionalWorkers();
 
     // Build more supply if we are going to run out soon
-    //buildAdditionalSupply();
+    buildAdditionalSupply();
 
     // Draw unit health bars, which brood war unfortunately does not do
-    //Tools::DrawUnitHealthBars();
+    Tools::DrawUnitHealthBars();
 
     // Draw some relevent information to the screen to help us debug the bot
-    //drawDebugInformation();
+    drawDebugInformation();
 }
 
 // Send our idle workers to mine minerals so they don't just stand there
@@ -126,14 +116,14 @@ void StarterBot::onEnd(bool isWinner)
 // Called whenever a unit is destroyed, with a pointer to the unit
 void StarterBot::onUnitDestroy(BWAPI::Unit unit)
 {
-  
+	
 }
 
 // Called whenever a unit is morphed, with a pointer to the unit
 // Zerg units morph when they turn into other units
 void StarterBot::onUnitMorph(BWAPI::Unit unit)
 {
-  
+	
 }
 
 // Called whenever a text is sent to the game by a user
@@ -150,32 +140,32 @@ void StarterBot::onSendText(std::string text)
 // so this will trigger when you issue the build command for most units
 void StarterBot::onUnitCreate(BWAPI::Unit unit)
 { 
-  
+	
 }
 
 // Called whenever a unit finished construction, with a pointer to the unit
 void StarterBot::onUnitComplete(BWAPI::Unit unit)
 {
-  
+	
 }
 
 // Called whenever a unit appears, with a pointer to the destroyed unit
 // This is usually triggered when units appear from fog of war and become visible
 void StarterBot::onUnitShow(BWAPI::Unit unit)
 { 
-  
+	
 }
 
 // Called whenever a unit gets hidden, with a pointer to the destroyed unit
 // This is usually triggered when units enter the fog of war and are no longer visible
 void StarterBot::onUnitHide(BWAPI::Unit unit)
 { 
-  
+	
 }
 
 // Called whenever a unit switches player control
 // This usually happens when a dark archon takes control of a unit
 void StarterBot::onUnitRenegade(BWAPI::Unit unit)
 { 
-  
+	
 }
