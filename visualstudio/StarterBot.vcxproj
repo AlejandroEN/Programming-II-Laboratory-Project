@@ -25,7 +25,7 @@
     <ClInclude Include="..\src\starterbot\StarterBot.h" />
     <ClInclude Include="..\src\starterbot\Tools.h" />
     <ClInclude Include="..\src\starterbot\GasCollectionEfficiencyTracker.hpp" />
-    <ClInclude Include="..\src\starterbot\MineralFieldCounter.hpp" />
+    <ClInclude Include="..\src\starterbot\MineralFieldTracker.hpp" />
     <ClInclude Include="..\src\starterbot\MineralIncrementTracker.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -35,7 +35,7 @@
     <ClCompile Include="..\src\starterbot\StarterBot.cpp" />
     <ClCompile Include="..\src\starterbot\Tools.cpp" />
     <ClCompile Include="..\src\starterbot\GasCollectionEfficiencyTracker.cpp" />
-    <ClCompile Include="..\src\starterbot\MineralFieldCounter.cpp" />
+    <ClCompile Include="..\src\starterbot\MineralFieldTracker.cpp" />
     <ClCompile Include="..\src\starterbot\MineralIncrementTracker.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

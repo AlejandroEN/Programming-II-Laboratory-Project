@@ -24,7 +24,8 @@ void StarterBot::onStart()
 // Called on each frame of the game
 void StarterBot::onFrame()
 {
-   MineralIncrementTracker::showMineralFieldCount();
+	MineralIncrementTracker::showMineralFieldCount();
+	MineralFieldTracker::showMineralFieldCounter();
 }
 
 // Send our idle workers to mine minerals so they don't just stand there
