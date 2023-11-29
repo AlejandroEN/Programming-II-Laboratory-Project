@@ -13,7 +13,7 @@ void MineralIncrementTracker::showMineralFieldCount()
 		_frameCounter = 0;
 		_framesLastCounts.push_back(_lastFrameCount);
 	}
-	else 
+	else
 	{
 		_frameCounter++;
 	}
@@ -36,25 +36,25 @@ void MineralIncrementTracker::showMineralFieldCount()
 	BWAPI::Broodwar->drawTextScreen(10, 20, "Ultimo conteo antes de reiniciar: %d", _lastFrameCount);
 	BWAPI::Broodwar->drawTextScreen(10, 40, "Ultimos 20 conteos: ");
 
-	for (int j = 0; j < _framesLastCounts.size() && j < 5 ; j++) 
+	for (int j = 0; j < _framesLastCounts.size() && j < 5 ; j++)
 	{
 		BWAPI::Broodwar->drawTextScreen(10 + j * 20, 60 + 0 * 20, "%d, ", _framesLastCounts[j]);
 	}
 
-	for (int j = 5; j < _framesLastCounts.size() && j < 10 ; j++) 
+	for (int j = 5; j < _framesLastCounts.size() && j < 10 ; j++)
 	{
 		BWAPI::Broodwar->drawTextScreen(10 + (j-5) * 20, 60 + 1 * 20, "%d, ", _framesLastCounts[j]);
 	}
 
-	for (int j = 10; j < _framesLastCounts.size() && j < 15 ; j++) 
+	for (int j = 10; j < _framesLastCounts.size() && j < 15 ; j++)
 	{
 		BWAPI::Broodwar->drawTextScreen(10 + (j - 10) * 20, 60 + 2 * 20, "%d, ", _framesLastCounts[j]);
 	}
 
-	for (int j = 15; j < _framesLastCounts.size() ; j++) 
+	for (int j = 15; j < _framesLastCounts.size() ; j++)
 	{
 		BWAPI::Broodwar->drawTextScreen(10 + (j-15) * 20, 60 + 3 * 20, "%d, ", _framesLastCounts[j]);
 	}
 
-	BWAPI::Broodwar->drawTextScreen(10, 140, "Promedio de los ultimos 20 conteos: %d", framesCountAverage);
+	BWAPI::Broodwar->drawTextScreen(10, 140, "Promedio de los ultimos 20 conteos: %f;", framesCountAverage);
 }

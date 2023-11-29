@@ -1,5 +1,19 @@
 #include "MineralFieldTracker.hpp"
 
+void MineralFieldTracker::initializeFields()
+{
+	std::vector<int> veinte;
+	auto minerals = BWAPI::Broodwar->getMinerals();
+	for (auto mineral : minerals)
+	{
+		_numeroDeMineralesAnterior.push_back(mineral->getResources());
+		_contadores.push_back(0);
+		_framesPorRecogida.push_back(0);
+		_ultimoConteo.push_back(0);
+		_veinteUltimosConteos.push_back(veinte);
+	}
+}
+
 void MineralFieldTracker::showMineralFieldCounter()
 {
 	const auto minerals = BWAPI::Broodwar->getMinerals();
@@ -46,7 +60,7 @@ void MineralFieldTracker::showMineralFieldCounter()
 
 		// Mostrar resultados en pantalla
 		BWAPI::Broodwar->drawTextMap(position.x + 10, position.y - 10, "Ultimo conteo:%d", _ultimoConteo[mineralIndex]);
-		BWAPI::Broodwar->drawTextMap(position.x + 10, position.y, "Promedio:%d", promedio);
+		BWAPI::Broodwar->drawTextMap(position.x + 10, position.y, "Promedio:%f", promedio);
 		mineralIndex++;
 	}
 }

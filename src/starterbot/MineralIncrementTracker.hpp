@@ -3,7 +3,7 @@
 #include <BWAPI.h>
 
 // Primera pregunta del proyecto
-class MineralIncrementTracker
+static class MineralIncrementTracker
 {
 	static inline signed int _mineralsAmount = 50;
 	static inline signed int _frameCounter;
