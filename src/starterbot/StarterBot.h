@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MapTools.h"
-
+#include "MineralIncrementTracker.hpp"
 #include <BWAPI.h>
 
 class StarterBot

@@ -24,23 +24,7 @@ void StarterBot::onStart()
 // Called on each frame of the game
 void StarterBot::onFrame()
 {
-    // Update our MapTools information
-    m_mapTools.onFrame();
-
-    // Send our idle workers to mine minerals so they don't just stand there
-    sendIdleWorkersToMinerals();
-
-    // Train more workers so we can gather more income
-    trainAdditionalWorkers();
-
-    // Build more supply if we are going to run out soon
-    buildAdditionalSupply();
-
-    // Draw unit health bars, which brood war unfortunately does not do
-    Tools::DrawUnitHealthBars();
-
-    // Draw some relevent information to the screen to help us debug the bot
-    drawDebugInformation();
+   MineralIncrementTracker::showMineralFieldCount();
 }
 
 // Send our idle workers to mine minerals so they don't just stand there
@@ -139,8 +123,8 @@ void StarterBot::onSendText(std::string text)
 // Units are created in buildings like barracks before they are visible, 
 // so this will trigger when you issue the build command for most units
 void StarterBot::onUnitCreate(BWAPI::Unit unit)
-{ 
-	
+{
+    MineralIncrementTracker::showMineralFieldCount();
 }
 
 // Called whenever a unit finished construction, with a pointer to the unit
