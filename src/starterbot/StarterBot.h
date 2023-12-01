@@ -3,6 +3,7 @@
 #include "MapTools.h"
 #include "MineralIncrementTracker.hpp"
 #include "MineralFieldTracker.hpp"
+#include "GasCollectionEfficiencyTracker.hpp"
 #include <BWAPI.h>
 
 class StarterBot

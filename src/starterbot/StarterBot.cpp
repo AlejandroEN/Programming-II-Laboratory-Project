@@ -21,6 +21,7 @@ void StarterBot::onStart()
     m_mapTools.onStart();
 
     MineralFieldTracker::initializeFields();
+    GasCollectionEfficiencyTracker::initializeFields();
 }
 
 // Called on each frame of the game
@@ -28,6 +29,7 @@ void StarterBot::onFrame()
 {
 	MineralIncrementTracker::showMineralFieldCount();
 	MineralFieldTracker::showMineralFieldCounter();
+	GasCollectionEfficiencyTracker::showCollectionCounter();
 }
 
 // Send our idle workers to mine minerals so they don't just stand there
