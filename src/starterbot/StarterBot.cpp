@@ -21,7 +21,6 @@ void StarterBot::onStart()
     m_mapTools.onStart();
 
     MineralFieldTracker::initializeFields();
-    GasCollectionEfficiencyTracker::initializeFields();
 }
 
 // Called on each frame of the game

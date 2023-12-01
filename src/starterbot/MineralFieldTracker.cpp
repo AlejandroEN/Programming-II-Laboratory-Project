@@ -16,12 +16,14 @@ void MineralFieldTracker::initializeFields()
 
 void MineralFieldTracker::showMineralFieldCounter()
 {
-	signed int mineralIndex = 0, sum = 0;
+	signed int mineralIndex = 0, sum;
 	float average;
 	BWAPI::Position mineralFieldPosition;
 
 	for (auto mineralField : BWAPI::Broodwar->getMinerals())
 	{
+		sum = 0;
+
 		if (mineralField->getResources() - _mineralsAmount[mineralIndex] != 0)
 		{
 			_lastFrameIntervals[mineralIndex] = _frameIntervals[mineralIndex];

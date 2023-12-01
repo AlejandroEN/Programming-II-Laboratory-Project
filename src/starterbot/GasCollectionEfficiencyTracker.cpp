@@ -2,21 +2,32 @@
 
 void GasCollectionEfficiencyTracker::initializeFields()
 {
-	vector<int> _;
-	auto& gases = BWAPI::Broodwar->getGeysers();
+	signed int refineriesAmount = 0;
 
-	for (auto gas : gases)
+	for (auto refinery : BWAPI::Broodwar->getAllUnits())
 	{
-		_gasesAmount.push_back(gas->getResources());
-		_frameIntervals.push_back(0);
-		_lastFrameIntervals.push_back(0);
-		_frameIntervalsPerGasRefinery.push_back(_);
+		if (refinery->getType().isRefinery())
+		{
+			refineriesAmount++;
+
+			if (refineriesAmount != _refineriesAmount)
+			{
+				_refineriesAmount++;
+				vector<int> _;
+				_gasesAmount.push_back(5000); // aquÃ­ el error
+				_frameIntervals.push_back(0);
+				_lastFrameIntervals.push_back(0);
+				_frameIntervalsPerGasRefinery.push_back(_);
+			}
+		}
 	}
 }
 
 void GasCollectionEfficiencyTracker::showCollectionCounter()
 {
-	signed int gasIndex = 0, sum = 0;
+	initializeFields();
+
+	signed int gasIndex = 0, sum;
 	float average;
 	BWAPI::Position gasRefineryPosition;
 
@@ -27,12 +38,14 @@ void GasCollectionEfficiencyTracker::showCollectionCounter()
 			continue;
 		}
 
+		sum = 0;
+
 		if (gasRefinery->getResources() - _gasesAmount[gasIndex] != 0)
 		{
 			_lastFrameIntervals[gasIndex] = _frameIntervals[gasIndex];
 			_gasesAmount[gasIndex] = gasRefinery->getResources();
 
-			// Reiniciamos el contador de frames para el mineral field de la iteración actual
+			// Reiniciamos el contador de frames para el mineral field de la iteraciï¿½n actual
 			_frameIntervals[gasIndex] = 0;
 			_frameIntervalsPerGasRefinery[gasIndex].push_back(_lastFrameIntervals[gasIndex]);
 		}
@@ -64,9 +77,14 @@ void GasCollectionEfficiencyTracker::showCollectionCounter()
 
 		gasRefineryPosition = gasRefinery->getPosition();
 
-		BWAPI::Broodwar->drawTextMap(gasRefineryPosition.x, gasRefineryPosition.y, "Average: %f", average);
+		BWAPI::Broodwar->drawTextMap(gasRefineryPosition.x - 20,
+									 gasRefineryPosition.y - 10,
+									 "Frames contados: %d",
+									 _lastFrameIntervals[gasIndex]);
 
-		sum = 0;
-		gasIndex++;
+		BWAPI::Broodwar->drawTextMap(gasRefineryPosition.x - 20,
+									 gasRefineryPosition.y,
+									 "Average: %f",
+									 average);
 	}
 }
