@@ -8,14 +8,14 @@ void MineralIncrementTracker::showMineralFieldCount()
 	// Verificar si el recuento ha aumentado en un multiplo de 8
 	if (currentMineralsAmount - _mineralsAmount != 0)
 	{
-		_lastFrameCount = _frameCounter;
+		_lastFrameInterval = _frameInterval;
 		_mineralsAmount = currentMineralsAmount;
-		_frameCounter = 0;
-		_framesLastCounts.push_back(_lastFrameCount);
+		_frameInterval = 0;
+		_framesLastCounts.push_back(_lastFrameInterval);
 	}
 	else
 	{
-		_frameCounter++;
+		_frameInterval++;
 	}
 
 	if (_framesLastCounts.size() > 20)
@@ -32,8 +32,8 @@ void MineralIncrementTracker::showMineralFieldCount()
 	const float framesCountAverage = _framesLastCounts.empty() ? 0 : static_cast<float>(framesCountSum) / static_cast<float>(_framesLastCounts.size());
 
 	// Mostrar resultados en pantalla
-	BWAPI::Broodwar->drawTextScreen(10, 0, "Frames contados: %d", _frameCounter);
-	BWAPI::Broodwar->drawTextScreen(10, 20, "Ultimo conteo antes de reiniciar: %d", _lastFrameCount);
+	BWAPI::Broodwar->drawTextScreen(10, 0, "Frames contados: %d", _frameInterval);
+	BWAPI::Broodwar->drawTextScreen(10, 20, "Ultimo conteo antes de reiniciar: %d", _lastFrameInterval);
 	BWAPI::Broodwar->drawTextScreen(10, 40, "Ultimos 20 conteos: ");
 
 	for (int j = 0; j < _framesLastCounts.size() && j < 5 ; j++)

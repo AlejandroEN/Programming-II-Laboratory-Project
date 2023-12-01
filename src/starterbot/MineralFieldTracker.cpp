@@ -2,65 +2,73 @@
 
 void MineralFieldTracker::initializeFields()
 {
-	std::vector<int> veinte;
-	auto minerals = BWAPI::Broodwar->getMinerals();
+	vector<int> _;
+	auto& minerals = BWAPI::Broodwar->getMinerals();
+
 	for (auto mineral : minerals)
 	{
-		_numeroDeMineralesAnterior.push_back(mineral->getResources());
-		_contadores.push_back(0);
-		_framesPorRecogida.push_back(0);
-		_ultimoConteo.push_back(0);
-		_veinteUltimosConteos.push_back(veinte);
+		_mineralsAmount.push_back(mineral->getResources());
+		_frameIntervals.push_back(0);
+		_lastFrameIntervals.push_back(0);
+	    _frameIntervalsPerMineralField.push_back(_);
 	}
 }
 
 void MineralFieldTracker::showMineralFieldCounter()
 {
-	const auto minerals = BWAPI::Broodwar->getMinerals();
-	signed int mineralIndex = 0, suma = 0;
-	float promedio = 0;
+	signed int mineralIndex = 0, sum = 0;
+	float average;
+	BWAPI::Position mineralFieldPosition;
 
-	for (auto mineral : minerals)
+	for (auto mineralField : BWAPI::Broodwar->getMinerals())
 	{
-		if (mineral->getResources() - _numeroDeMineralesAnterior[mineralIndex] != 0)
+		if (mineralField->getResources() - _mineralsAmount[mineralIndex] != 0)
 		{
-			_ultimoConteo[mineralIndex] = _contadores[mineralIndex];
-			_numeroDeMineralesAnterior[mineralIndex] = mineral->getResources();
-			// Reiniciar el contador de frames
-			_contadores[mineralIndex] = 0;
-			_veinteUltimosConteos[mineralIndex].push_back(_ultimoConteo[mineralIndex]);
+			_lastFrameIntervals[mineralIndex] = _frameIntervals[mineralIndex];
+			_mineralsAmount[mineralIndex] = mineralField->getResources();
+
+			// Reiniciamos el contador de frames para el mineral field de la iteración actual
+			_frameIntervals[mineralIndex] = 0;
+			_frameIntervalsPerMineralField[mineralIndex].push_back(_lastFrameIntervals[mineralIndex]);
 		}
 		else
 		{
-			// Incrementar el contador de frames
-			_contadores[mineralIndex]++;
+			// Incrementamos el contador de frames para cada mineral field
+			_frameIntervals[mineralIndex]++;
 		}
 
-		if (_veinteUltimosConteos[mineralIndex].size() > 20)
+		if (_frameIntervalsPerMineralField[mineralIndex].size() > 20)
 		{
-			_veinteUltimosConteos[mineralIndex].erase(_veinteUltimosConteos[mineralIndex].begin());
+			_frameIntervalsPerMineralField[mineralIndex].erase(_frameIntervalsPerMineralField[mineralIndex].begin());
 		}
 
 		// Calcular el promedio de los ultimos 20 conteos
-		for (int count : _veinteUltimosConteos[mineralIndex])
+		for (int count : _frameIntervalsPerMineralField[mineralIndex])
 		{
-			suma += count;
+			sum += count;
 		}
 
-		if (_veinteUltimosConteos[mineralIndex].size() == 0)
+		if (_frameIntervalsPerMineralField[mineralIndex].size() == 0)
 		{
-			promedio = 0;
+			average = 0;
 		}
 		else
 		{
-			promedio = suma / _veinteUltimosConteos[mineralIndex].size();
+			average = sum / _frameIntervalsPerMineralField[mineralIndex].size();
 		}
 
-		auto position = mineral->getPosition();
+		mineralFieldPosition = mineralField->getPosition();
 
 		// Mostrar resultados en pantalla
-		BWAPI::Broodwar->drawTextMap(position.x + 10, position.y - 10, "Ultimo conteo:%d", _ultimoConteo[mineralIndex]);
-		BWAPI::Broodwar->drawTextMap(position.x + 10, position.y, "Promedio:%f", promedio);
+		BWAPI::Broodwar->drawTextMap(mineralFieldPosition.x - 20,
+									 mineralFieldPosition.y - 10,
+									 "Ultimo conteo:%d", 
+									 _lastFrameIntervals[mineralIndex]);
+
+		BWAPI::Broodwar->drawTextMap(mineralFieldPosition.x - 20,
+									 mineralFieldPosition.y,
+									 "Promedio:%f", 
+									 average);
 		mineralIndex++;
 	}
 }

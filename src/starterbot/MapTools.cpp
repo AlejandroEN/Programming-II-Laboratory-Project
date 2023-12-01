@@ -1,14 +1,13 @@
-#include "MapTools.h"
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <array>
+#include "MapTools.h"
 
 // constructor for MapTools
 MapTools::MapTools()
 {
-    
+
 }
 
 const std::string& MapTools::mapName() const
